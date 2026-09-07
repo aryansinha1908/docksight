@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchHostContainers } from '@/services/hosts';
+import { useQuery } from '@tanstack/react-query'
+import { fetchHostContainers } from '@/services/hosts'
 
 export function containersQueryKey(hostId: string) {
-  return ['hosts', hostId, 'containers'] as const;
+  return ['hosts', hostId, 'containers'] as const
 }
 
 export function useContainers(hostId: string | undefined) {
@@ -10,6 +10,6 @@ export function useContainers(hostId: string | undefined) {
     queryKey: containersQueryKey(hostId ?? ''),
     queryFn: () => fetchHostContainers(hostId!),
     enabled: Boolean(hostId),
-    refetchInterval: 20_000,
-  });
+    refetchInterval: 2_000,
+  })
 }

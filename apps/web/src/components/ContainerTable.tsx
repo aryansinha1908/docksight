@@ -52,6 +52,18 @@ type ContainerTableProps = {
 
 const NEEDS_ADMIN = 'Requires the ADMIN role';
 
+/**
+ * Every published/exposed port, joined rather than showing only the first
+ * mapping. `PublicPort` is empty for a port that is exposed but not
+ * published, which renders as the private port alone instead of `:80`.
+ */
+function renderPort(ports: Port[]): string {
+  if (!ports || ports.length === 0) return '-'
+  return ports
+    .map((port) => (port.PublicPort ? `${port.PublicPort}:${port.PrivatePort}` : `${port.PrivatePort}`))
+    .join(', ')
+}
+
 export function ContainerTable({
   containers,
   busyKey = null,
